@@ -14,7 +14,7 @@ namespace Eureca
     {
         
         private string id;
-        private NpgsqlConnection con = new NpgsqlConnection("Server=127.0.0.1;Username=postgres;Password=afonin.eureca;Database=eureca");
+        private NpgsqlConnection con = new NpgsqlConnection("Server=172.28.2.117;Username=postgres;Password=postgres;Database=eureca");
         private NpgsqlCommand cmd = new NpgsqlCommand();
         public Form1()
         {
@@ -30,13 +30,9 @@ namespace Eureca
                 DataTable dt = new DataTable();
                 dt.Load(rdr);
                 dataGridView1.DataSource = dt;
-
+                rdr.Close();    
             }
-           var date = new NpgsqlCommand("select dateofupdate from eureca.item limit 1;",con);
-            var read = date.ExecuteReader();
-            read.Read();
 
-            textBox1.Text = read.GetString(0);
             cmd.Dispose();
 
             con.Close();
