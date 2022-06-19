@@ -35,7 +35,6 @@ namespace Eureca
             var date = new NpgsqlCommand("select dateofupdate from eureca.item limit 1;", con);
             var read = date.ExecuteReader();
             read.Read();
-
             textBox1.Text = read.GetString(0);
             cmd.Dispose();
 
