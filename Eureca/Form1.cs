@@ -12,7 +12,7 @@ namespace Eureca
 {
     public partial class Form1 : Form
     {
-        
+       
         private string id;
         private NpgsqlConnection con = new NpgsqlConnection("Server=172.28.2.117;Username=postgres;Password=postgres;Database=eureca");
         private NpgsqlCommand cmd = new NpgsqlCommand();
@@ -52,10 +52,10 @@ namespace Eureca
                 con.Open();
                 string box="";
                 for (int i = 0; i < txtSearch.Text.Length-1; i++) box += txtSearch.Text[i];
-                sql = String.Format("select * from eureca.view Where partnumber like '{0}%';", box);       
+                sql = String.Format("select * from eureca.view Where partnumber like '{0}%' limit 500;", box);       
                 if (char.IsLetterOrDigit(e.KeyChar))
                 {
-                    sql = String.Format("select * from eureca.view Where partnumber like '{0}%';", txtSearch.Text + e.KeyChar.ToString());
+                    sql = String.Format("select * from eureca.view Where partnumber like '{0}%' limit 500;", txtSearch.Text + e.KeyChar.ToString());
                 }
                  NpgsqlCommand cmd = new NpgsqlCommand();
                 cmd.Connection = con;
@@ -78,7 +78,7 @@ namespace Eureca
 
                 if (txtSearch.Text.Length == 1)
                 {
-                    sql = "select * from eureca.view;";
+                    sql = "select * from eureca.view limit 500;";
                     NpgsqlCommand cmd = new NpgsqlCommand();
                     cmd.Connection = con;
                     cmd.CommandText = sql;
