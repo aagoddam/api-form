@@ -25,6 +25,18 @@
             Returns the optional URL associated with this attribute instance.
             </summary>
         </member>
+        <member name="T:System.Text.StringBuilderExtensions">
+            <summary>
+            A set of extension methods to <see cref="T:System.Text.StringBuilder"/> to allow runtime compatibility.
+            </summary>
+        </member>
+        <member name="M:System.Text.StringBuilderExtensions.Append(System.Text.StringBuilder,System.ReadOnlySpan{System.Char})">
+            <summary>
+            Appends the provided <see cref="T:System.ReadOnlySpan`1"/> to the <see cref="T:System.Text.StringBuilder"/>.
+            </summary>
+            <param name="stringBuilder">The <see cref="T:System.Text.StringBuilder"/> to append to.</param>
+            <param name="span">The <see cref="T:System.ReadOnlySpan`1"/> to append.</param>
+        </member>
         <member name="T:Npgsql.BackendMessages.CopyDataMessage">
             <summary>
             Note that this message doesn't actually contain the data, but only the length. Data is processed
@@ -1058,18 +1070,6 @@
         <member name="M:Npgsql.Internal.TypeHandlers.ByteaHandler.Write(System.ArraySegment{System.Byte},Npgsql.Internal.NpgsqlWriteBuffer,Npgsql.Internal.TypeHandling.NpgsqlLengthCache,Npgsql.NpgsqlParameter,System.Boolean,System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:Npgsql.Internal.TypeHandlers.ByteaHandler.ValidateAndGetLength(System.Memory{System.Byte},Npgsql.Internal.TypeHandling.NpgsqlLengthCache@,Npgsql.NpgsqlParameter)">
-            <inheritdoc />
-        </member>
-        <member name="M:Npgsql.Internal.TypeHandlers.ByteaHandler.ValidateAndGetLength(System.ReadOnlyMemory{System.Byte},Npgsql.Internal.TypeHandling.NpgsqlLengthCache@,Npgsql.NpgsqlParameter)">
-            <inheritdoc />
-        </member>
-        <member name="M:Npgsql.Internal.TypeHandlers.ByteaHandler.Write(System.ReadOnlyMemory{System.Byte},Npgsql.Internal.NpgsqlWriteBuffer,Npgsql.Internal.TypeHandling.NpgsqlLengthCache,Npgsql.NpgsqlParameter,System.Boolean,System.Threading.CancellationToken)">
-            <inheritdoc />
-        </member>
-        <member name="M:Npgsql.Internal.TypeHandlers.ByteaHandler.Write(System.Memory{System.Byte},Npgsql.Internal.NpgsqlWriteBuffer,Npgsql.Internal.TypeHandling.NpgsqlLengthCache,Npgsql.NpgsqlParameter,System.Boolean,System.Threading.CancellationToken)">
-            <inheritdoc />
-        </member>
         <member name="P:Npgsql.Internal.TypeHandlers.CompositeHandlers.ICompositeHandler.CompositeType">
             <summary>
             The CLR type mapped to the PostgreSQL composite type.
@@ -1571,12 +1571,6 @@
             <inheritdoc />
         </member>
         <member name="M:Npgsql.Internal.TypeHandlers.HstoreHandler.Read(Npgsql.Internal.NpgsqlReadBuffer,System.Int32,System.Boolean,Npgsql.BackendMessages.FieldDescription)">
-            <inheritdoc />
-        </member>
-        <member name="M:Npgsql.Internal.TypeHandlers.HstoreHandler.ValidateAndGetLength(System.Collections.Immutable.ImmutableDictionary{System.String,System.String},Npgsql.Internal.TypeHandling.NpgsqlLengthCache@,Npgsql.NpgsqlParameter)">
-            <inheritdoc />
-        </member>
-        <member name="M:Npgsql.Internal.TypeHandlers.HstoreHandler.Write(System.Collections.Immutable.ImmutableDictionary{System.String,System.String},Npgsql.Internal.NpgsqlWriteBuffer,Npgsql.Internal.TypeHandling.NpgsqlLengthCache,Npgsql.NpgsqlParameter,System.Boolean,System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
         <member name="T:Npgsql.Internal.TypeHandlers.InternalTypeHandlers.Int2VectorHandler">
@@ -4257,45 +4251,6 @@
             <returns>A <see cref="T:Npgsql.NpgsqlTransaction"/> object representing the new transaction.</returns>
             <remarks>Nested transactions are not supported.</remarks>
         </member>
-        <member name="M:Npgsql.NpgsqlConnection.BeginDbTransactionAsync(System.Data.IsolationLevel,System.Threading.CancellationToken)">
-            <summary>
-            Asynchronously begins a database transaction.
-            </summary>
-            <param name="isolationLevel">The isolation level under which the transaction should run.</param>
-            <param name="cancellationToken">
-            An optional token to cancel the asynchronous operation. The default value is <see cref="P:System.Threading.CancellationToken.None"/>.
-            </param>
-            <returns>A task whose <see cref="P:System.Threading.Tasks.ValueTask`1.Result"/> property is an object representing the new transaction.</returns>
-            <remarks>
-            Nested transactions are not supported.
-            </remarks>
-        </member>
-        <member name="M:Npgsql.NpgsqlConnection.BeginTransactionAsync(System.Threading.CancellationToken)">
-            <summary>
-            Asynchronously begins a database transaction.
-            </summary>
-            <param name="cancellationToken">
-            An optional token to cancel the asynchronous operation. The default value is <see cref="P:System.Threading.CancellationToken.None"/>.
-            </param>
-            <returns>A task whose Result property is an object representing the new transaction.</returns>
-            <remarks>
-            Nested transactions are not supported.
-            Transactions created by this method will have the <see cref="F:System.Data.IsolationLevel.ReadCommitted"/> isolation level.
-            </remarks>
-        </member>
-        <member name="M:Npgsql.NpgsqlConnection.BeginTransactionAsync(System.Data.IsolationLevel,System.Threading.CancellationToken)">
-            <summary>
-            Asynchronously begins a database transaction.
-            </summary>
-            <param name="level">The isolation level under which the transaction should run.</param>
-            <param name="cancellationToken">
-            An optional token to cancel the asynchronous operation. The default value is <see cref="P:System.Threading.CancellationToken.None"/>.
-            </param>
-            <returns>A task whose <see cref="P:System.Threading.Tasks.ValueTask`1.Result"/> property is an object representing the new transaction.</returns>
-            <remarks>
-            Nested transactions are not supported.
-            </remarks>
-        </member>
         <member name="M:Npgsql.NpgsqlConnection.EnlistTransaction(System.Transactions.Transaction)">
             <summary>
             Enlist transaction.
@@ -4373,9 +4328,13 @@
         </member>
         <member name="P:Npgsql.NpgsqlConnection.UserCertificateValidationCallback">
             <summary>
+            <para>
             Verifies the remote Secure Sockets Layer (SSL) certificate used for authentication.
-            Ignored if <see cref="P:Npgsql.NpgsqlConnectionStringBuilder.SslMode"/> is set to <see cref="F:Npgsql.SslMode.Allow"/>,
-            <see cref="F:Npgsql.SslMode.Prefer"/> or <see cref="F:Npgsql.SslMode.Require"/>.
+            </para>
+            <para>
+            Cannot be used in conjunction with <see cref="F:Npgsql.SslMode.Disable" />, <see cref="F:Npgsql.SslMode.VerifyCA" /> and
+            <see cref="F:Npgsql.SslMode.VerifyFull" />.
+            </para>
             </summary>
             <remarks>
             See <see href="https://msdn.microsoft.com/en-us/library/system.net.security.remotecertificatevalidationcallback(v=vs.110).aspx"/>
@@ -6426,16 +6385,6 @@
         <member name="M:Npgsql.NpgsqlFactory.CreateDataAdapter">
             <summary>
             Returns a strongly typed <see cref="T:System.Data.Common.DbDataAdapter"/> instance.
-            </summary>
-        </member>
-        <member name="P:Npgsql.NpgsqlFactory.CanCreateDataAdapter">
-            <summary>
-            Specifies whether the specific <see cref="T:System.Data.Common.DbProviderFactory"/> supports the <see cref="T:System.Data.Common.DbDataAdapter"/> class.
-            </summary>
-        </member>
-        <member name="P:Npgsql.NpgsqlFactory.CanCreateCommandBuilder">
-            <summary>
-            Specifies whether the specific <see cref="T:System.Data.Common.DbProviderFactory"/> supports the <see cref="T:System.Data.Common.DbCommandBuilder"/> class.
             </summary>
         </member>
         <member name="M:Npgsql.NpgsqlFactory.GetService(System.Type)">
@@ -12675,6 +12624,15 @@
             Gets a string representation in PostgreSQL's format.
             </summary>
             <returns></returns>
+        </member>
+        <member name="M:NpgsqlTypes.NpgsqlTsVector.Equals(NpgsqlTypes.NpgsqlTsVector)">
+            <inheritdoc />
+        </member>
+        <member name="M:NpgsqlTypes.NpgsqlTsVector.Equals(System.Object)">
+            <inheritdoc />
+        </member>
+        <member name="M:NpgsqlTypes.NpgsqlTsVector.GetHashCode">
+            <inheritdoc />
         </member>
         <member name="T:NpgsqlTypes.NpgsqlTsVector.Lexeme">
             <summary>

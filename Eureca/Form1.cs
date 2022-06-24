@@ -22,14 +22,15 @@ namespace Eureca
             con.Open();
             cmd.Connection = con;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "select * from eureca.view;";
+            cmd.CommandText = "select * from eureca.view limit 5000;";
 
             NpgsqlDataReader rdr = cmd.ExecuteReader();
             if (rdr.HasRows)
             {
                 DataTable dt = new DataTable();
                 dt.Load(rdr);
-                dataGridView1.DataSource = dt;
+
+                advancedDataGridView2.DataSource = dt;
                 rdr.Close();    
             }
             var date = new NpgsqlCommand("select dateofupdate from eureca.item limit 1;", con);
@@ -47,32 +48,8 @@ namespace Eureca
         {
             string sql;
             
-            if (char.IsLetterOrDigit(e.KeyChar) || e.KeyChar==(char)Keys.Back)
-            {
-                con.Open();
-                string box="";
-                for (int i = 0; i < txtSearch.Text.Length-1; i++) box += txtSearch.Text[i];
-                sql = String.Format("select * from eureca.view Where partnumber like '{0}%' limit 500;", box);       
-                if (char.IsLetterOrDigit(e.KeyChar))
-                {
-                    sql = String.Format("select * from eureca.view Where partnumber like '{0}%' limit 500;", txtSearch.Text + e.KeyChar.ToString());
-                }
-                 NpgsqlCommand cmd = new NpgsqlCommand();
-                cmd.Connection = con;
-                cmd.CommandText = sql;
-                cmd.CommandType = CommandType.Text;
-                NpgsqlDataReader rdr = cmd.ExecuteReader();
-                if (rdr.HasRows)
-                {
-                    DataTable dt = new DataTable();
-                    dt.Load(rdr);
-                    dataGridView1.DataSource = dt;
 
-                }
-                con.Close();
-               
-            }
-            if (Char.IsControl (e.KeyChar))
+            if (Char.IsControl (e.KeyChar) && e.KeyChar != (char)Keys.Back)
             {
                 con.Open();
 
@@ -88,7 +65,7 @@ namespace Eureca
                     {
                         DataTable dt = new DataTable();
                         dt.Load(rdr);
-                        dataGridView1.DataSource = dt;
+                        advancedDataGridView2.DataSource = dt;
 
                     }
                 }
@@ -98,13 +75,7 @@ namespace Eureca
 
                 if (e.KeyChar == (char)Keys.Enter)
                 {
-                    string[] arr = txtSearch.Text.Split(',');
-                    for (int i = 0; i < arr.Length; i++)
-                    {
-                        arr[i] = "'" + arr[i] + "'";
-                    }
-                    id = String.Join(",", arr);
-                    sql = string.Format("Select * from eureca.view where partnumber in ({0});", id);
+                    sql = String.Format("select * from eureca.view Where partnumber ilike '%{0}%' limit 500;", txtSearch.Text);
                     NpgsqlCommand cmd = new NpgsqlCommand();
                     cmd.Connection = con;
                     cmd.CommandText = sql;
@@ -114,15 +85,40 @@ namespace Eureca
                     {
                         DataTable dt = new DataTable();
                         dt.Load(rdr);
-                        dataGridView1.DataSource = dt;
+                        advancedDataGridView2.DataSource = dt;
 
                     }
-                    else MessageBox.Show(String.Format(" По позиции {0} ничего не найдено", id));
                     cmd.Dispose();
                 }
                 con.Close();
             }
-           
+            else
+            {
+                con.Open();
+                string box = "";
+                for (int i = 0; i < txtSearch.Text.Length - 1; i++) box += txtSearch.Text[i];
+                if (e.KeyChar == (char)Keys.Back)
+                {
+                    sql = String.Format("select * from eureca.view Where partnumber ilike '%{0}%' limit 500;", box);
+                }
+                else sql = String.Format("select * from eureca.view Where partnumber ilike '%{0}%' limit 500;", txtSearch.Text + e.KeyChar.ToString());
+
+                NpgsqlCommand cmd = new NpgsqlCommand();
+                cmd.Connection = con;
+                cmd.CommandText = sql;
+                cmd.CommandType = CommandType.Text;
+                NpgsqlDataReader rdr = cmd.ExecuteReader();
+                if (rdr.HasRows)
+                {
+                    DataTable dt = new DataTable();
+                    dt.Load(rdr);
+                    advancedDataGridView2.DataSource = dt;
+
+                }
+                con.Close();
+
+            }
+
         }
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -144,5 +140,8 @@ namespace Eureca
         {
            
         }
+
+     
+       
     }
 }

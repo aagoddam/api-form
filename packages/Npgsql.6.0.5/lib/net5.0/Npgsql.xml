@@ -4373,9 +4373,13 @@
         </member>
         <member name="P:Npgsql.NpgsqlConnection.UserCertificateValidationCallback">
             <summary>
+            <para>
             Verifies the remote Secure Sockets Layer (SSL) certificate used for authentication.
-            Ignored if <see cref="P:Npgsql.NpgsqlConnectionStringBuilder.SslMode"/> is set to <see cref="F:Npgsql.SslMode.Allow"/>,
-            <see cref="F:Npgsql.SslMode.Prefer"/> or <see cref="F:Npgsql.SslMode.Require"/>.
+            </para>
+            <para>
+            Cannot be used in conjunction with <see cref="F:Npgsql.SslMode.Disable" />, <see cref="F:Npgsql.SslMode.VerifyCA" /> and
+            <see cref="F:Npgsql.SslMode.VerifyFull" />.
+            </para>
             </summary>
             <remarks>
             See <see href="https://msdn.microsoft.com/en-us/library/system.net.security.remotecertificatevalidationcallback(v=vs.110).aspx"/>
@@ -12657,6 +12661,15 @@
             Gets a string representation in PostgreSQL's format.
             </summary>
             <returns></returns>
+        </member>
+        <member name="M:NpgsqlTypes.NpgsqlTsVector.Equals(NpgsqlTypes.NpgsqlTsVector)">
+            <inheritdoc />
+        </member>
+        <member name="M:NpgsqlTypes.NpgsqlTsVector.Equals(System.Object)">
+            <inheritdoc />
+        </member>
+        <member name="M:NpgsqlTypes.NpgsqlTsVector.GetHashCode">
+            <inheritdoc />
         </member>
         <member name="T:NpgsqlTypes.NpgsqlTsVector.Lexeme">
             <summary>

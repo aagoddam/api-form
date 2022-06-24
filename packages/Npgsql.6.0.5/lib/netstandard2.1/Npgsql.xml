@@ -4,6 +4,27 @@
         <name>Npgsql</name>
     </assembly>
     <members>
+        <member name="M:System.Runtime.Versioning.RequiresPreviewFeaturesAttribute.#ctor">
+            <summary>
+            Initializes a new instance of the <seealso cref="T:System.Runtime.Versioning.RequiresPreviewFeaturesAttribute"/> class.
+            </summary>
+        </member>
+        <member name="M:System.Runtime.Versioning.RequiresPreviewFeaturesAttribute.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <seealso cref="T:System.Runtime.Versioning.RequiresPreviewFeaturesAttribute"/> class with the specified message.
+            </summary>
+            <param name="message">An optional message associated with this attribute instance.</param>
+        </member>
+        <member name="P:System.Runtime.Versioning.RequiresPreviewFeaturesAttribute.Message">
+            <summary>
+            Returns the optional message associated with this attribute instance.
+            </summary>
+        </member>
+        <member name="P:System.Runtime.Versioning.RequiresPreviewFeaturesAttribute.Url">
+            <summary>
+            Returns the optional URL associated with this attribute instance.
+            </summary>
+        </member>
         <member name="T:Npgsql.BackendMessages.CopyDataMessage">
             <summary>
             Note that this message doesn't actually contain the data, but only the length. Data is processed
@@ -1550,12 +1571,6 @@
             <inheritdoc />
         </member>
         <member name="M:Npgsql.Internal.TypeHandlers.HstoreHandler.Read(Npgsql.Internal.NpgsqlReadBuffer,System.Int32,System.Boolean,Npgsql.BackendMessages.FieldDescription)">
-            <inheritdoc />
-        </member>
-        <member name="M:Npgsql.Internal.TypeHandlers.HstoreHandler.ValidateAndGetLength(System.Collections.Immutable.ImmutableDictionary{System.String,System.String},Npgsql.Internal.TypeHandling.NpgsqlLengthCache@,Npgsql.NpgsqlParameter)">
-            <inheritdoc />
-        </member>
-        <member name="M:Npgsql.Internal.TypeHandlers.HstoreHandler.Write(System.Collections.Immutable.ImmutableDictionary{System.String,System.String},Npgsql.Internal.NpgsqlWriteBuffer,Npgsql.Internal.TypeHandling.NpgsqlLengthCache,Npgsql.NpgsqlParameter,System.Boolean,System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
         <member name="T:Npgsql.Internal.TypeHandlers.InternalTypeHandlers.Int2VectorHandler">
@@ -4204,14 +4219,11 @@
             </summary>
             <returns>A <see cref="T:Npgsql.NpgsqlCommand"/> object.</returns>
         </member>
-        <member name="P:Npgsql.NpgsqlConnection.CanCreateBatch">
-            <inheritdoc/>
-        </member>
-        <member name="M:Npgsql.NpgsqlConnection.CreateDbBatch">
-            <inheritdoc/>
-        </member>
         <member name="M:Npgsql.NpgsqlConnection.CreateBatch">
-            <inheritdoc cref="M:System.Data.Common.DbConnection.CreateBatch"/>
+            <summary>
+            Creates and returns a <see cref="T:Npgsql.NpgsqlBatch"/> object associated with the <see cref="T:Npgsql.NpgsqlConnection"/>.
+            </summary>
+            <returns>A <see cref="T:Npgsql.NpgsqlBatch"/> object.</returns>
         </member>
         <member name="M:Npgsql.NpgsqlConnection.BeginDbTransaction(System.Data.IsolationLevel)">
             <summary>
@@ -4355,9 +4367,13 @@
         </member>
         <member name="P:Npgsql.NpgsqlConnection.UserCertificateValidationCallback">
             <summary>
+            <para>
             Verifies the remote Secure Sockets Layer (SSL) certificate used for authentication.
-            Ignored if <see cref="P:Npgsql.NpgsqlConnectionStringBuilder.SslMode"/> is set to <see cref="F:Npgsql.SslMode.Allow"/>,
-            <see cref="F:Npgsql.SslMode.Prefer"/> or <see cref="F:Npgsql.SslMode.Require"/>.
+            </para>
+            <para>
+            Cannot be used in conjunction with <see cref="F:Npgsql.SslMode.Disable" />, <see cref="F:Npgsql.SslMode.VerifyCA" /> and
+            <see cref="F:Npgsql.SslMode.VerifyFull" />.
+            </para>
             </summary>
             <remarks>
             See <see href="https://msdn.microsoft.com/en-us/library/system.net.security.remotecertificatevalidationcallback(v=vs.110).aspx"/>
@@ -6357,10 +6373,10 @@
             </summary>
         </member>
         <member name="P:Npgsql.NpgsqlException.BatchCommand">
-            <inheritdoc cref="P:System.Data.Common.DbException.BatchCommand"/>
-        </member>
-        <member name="P:Npgsql.NpgsqlException.DbBatchCommand">
-            <inheritdoc/>
+            <summary>
+            If the exception was thrown as a result of executing a <see cref="T:System.Data.Common.DbBatch"/>, references the <see cref="T:System.Data.Common.DbBatchCommand"/> within
+            the batch which triggered the exception. Otherwise <see langword="null"/>.
+            </summary>
         </member>
         <member name="M:Npgsql.NpgsqlException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
             <summary>
@@ -6419,15 +6435,6 @@
             <summary>
             Specifies whether the specific <see cref="T:System.Data.Common.DbProviderFactory"/> supports the <see cref="T:System.Data.Common.DbCommandBuilder"/> class.
             </summary>
-        </member>
-        <member name="P:Npgsql.NpgsqlFactory.CanCreateBatch">
-            <inheritdoc/>
-        </member>
-        <member name="M:Npgsql.NpgsqlFactory.CreateBatch">
-            <inheritdoc/>
-        </member>
-        <member name="M:Npgsql.NpgsqlFactory.CreateBatchCommand">
-            <inheritdoc/>
         </member>
         <member name="M:Npgsql.NpgsqlFactory.GetService(System.Type)">
             <summary>
@@ -10141,6 +10148,24 @@
             and be very careful with this.
             </remarks>
         </member>
+        <member name="M:Npgsql.TaskExtensions.WithTimeout(System.Threading.Tasks.Task,Npgsql.Util.NpgsqlTimeout)">
+            <summary>
+            Utility that simplifies awaiting a task with a timeout. If the given task does not
+            complete within <paramref name="timeout"/>, a <see cref="T:System.TimeoutException"/> is thrown.
+            </summary>
+            <param name="task">The task to be awaited</param>
+            <param name="timeout">How much time to allow <paramref name="task"/> to complete before throwing a <see cref="T:System.TimeoutException"/></param>
+            <returns>An awaitable task that represents the original task plus the timeout</returns>
+        </member>
+        <member name="M:Npgsql.TaskExtensions.WithCancellation(System.Threading.Tasks.Task,System.Threading.CancellationToken)">
+            <summary>
+            Allows you to cancel awaiting for a non-cancellable task.
+            </summary>
+            <remarks>
+            Read https://blogs.msdn.com/b/pfxteam/archive/2012/10/05/how-do-i-cancel-non-cancelable-async-operations.aspx
+            and be very careful with this.
+            </remarks>
+        </member>
         <member name="P:Npgsql.TypeMapping.ConnectorTypeMapper.ChangeCounter">
             <summary>
             Copy of <see cref="P:Npgsql.TypeMapping.GlobalTypeMapper.ChangeCounter"/> at the time when this
@@ -12648,6 +12673,15 @@
             Gets a string representation in PostgreSQL's format.
             </summary>
             <returns></returns>
+        </member>
+        <member name="M:NpgsqlTypes.NpgsqlTsVector.Equals(NpgsqlTypes.NpgsqlTsVector)">
+            <inheritdoc />
+        </member>
+        <member name="M:NpgsqlTypes.NpgsqlTsVector.Equals(System.Object)">
+            <inheritdoc />
+        </member>
+        <member name="M:NpgsqlTypes.NpgsqlTsVector.GetHashCode">
+            <inheritdoc />
         </member>
         <member name="T:NpgsqlTypes.NpgsqlTsVector.Lexeme">
             <summary>
