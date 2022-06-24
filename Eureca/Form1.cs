@@ -13,7 +13,7 @@ namespace Eureca
     public partial class Form1 : Form
     {
        
-        private string id;
+       
         private NpgsqlConnection con = new NpgsqlConnection("Server=172.28.2.117;Username=postgres;Password=postgres;Database=eureca");
         private NpgsqlCommand cmd = new NpgsqlCommand();
         public Form1()
@@ -141,7 +141,9 @@ namespace Eureca
            
         }
 
-     
-       
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

@@ -59,6 +59,7 @@
             this.label1.Size = new System.Drawing.Size(112, 16);
             this.label1.TabIndex = 2;
             this.label1.Text = "Артикул товара";
+            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // textBox1
             // 

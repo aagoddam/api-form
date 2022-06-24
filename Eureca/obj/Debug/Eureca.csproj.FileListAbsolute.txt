@@ -51,3 +51,7 @@ C:\Users\USER\source\repos\eureca\Eureca\bin\Debug\System.ValueTuple.xml
 C:\Users\USER\source\repos\eureca\Eureca\obj\Debug\Eureca.csproj.CopyComplete
 C:\Users\USER\source\repos\eureca\Eureca\obj\Debug\Eureca.Form2.resources
 C:\Users\USER\source\repos\eureca\Eureca\bin\Debug\AdvancedDataGridView.dll
+C:\Users\USER\source\repos\eureca\Eureca\bin\Debug\Eureca.exe.manifest
+C:\Users\USER\source\repos\eureca\Eureca\bin\Debug\Eureca.application
+C:\Users\USER\source\repos\eureca\Eureca\obj\Debug\Eureca.exe.manifest
+C:\Users\USER\source\repos\eureca\Eureca\obj\Debug\Eureca.application
