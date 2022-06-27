@@ -11,7 +11,7 @@
     <deploymentProvider codebase="http://desktop-khi3enp/Eureca/Eureca.application" />
   </deployment>
   <compatibleFrameworks xmlns="urn:schemas-microsoft-com:clickonce.v2">
-    <framework targetVersion="4.7.2" profile="Full" supportedRuntime="4.0.30319" />
+    <framework targetVersion="4.8" profile="Full" supportedRuntime="4.0.30319" />
   </compatibleFrameworks>
   <dependency>
     <dependentAssembly dependencyType="install" codebase="Eureca.exe.manifest" size="14072">
@@ -21,7 +21,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>ABlKNyLZtJE6hQwGnV/mSfme8nCgF+lEmcpugULZ+b8=</dsig:DigestValue>
+        <dsig:DigestValue>JmryBPh6y2G1tyCFJe/gDFkxwlFTpgzkjaqCXPE9ALU=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

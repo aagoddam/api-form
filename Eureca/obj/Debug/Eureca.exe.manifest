@@ -61,7 +61,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>Gxv6AugAXw7iOmoq2LY7C/Gu+vihqGW9XI+2/pX6xDI=</dsig:DigestValue>
+        <dsig:DigestValue>wJRpRTkSccBn4aTRzWwLcc5dWgYdI3Hna1bQRcy0+CA=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -233,13 +233,13 @@
       </hash>
     </dependentAssembly>
   </dependency>
-  <file name="Eureca.exe.config" size="803">
+  <file name="Eureca.exe.config" size="795">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>N42mrLxGNUnnsJG5dGQrWUGFGleIzcLmIK33fyXuijM=</dsig:DigestValue>
+      <dsig:DigestValue>58lrs/mF3FrQpq3HVYOzkfgyQJ5r23FkLz1IAiedtu0=</dsig:DigestValue>
     </hash>
   </file>
 </asmv1:assembly>
