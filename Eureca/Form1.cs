@@ -75,7 +75,7 @@ namespace Eureca
 
                 if (e.KeyChar == (char)Keys.Enter)
                 {
-                    sql = String.Format("select * from eureca.view Where partnumber ilike '%{0}%' limit 500;", txtSearch.Text);
+                    sql = String.Format("select * from eureca.view Where (Описание ilike '%{0}%' or partnumber ilike '%{0}%') limit 500;", txtSearch.Text);
                     NpgsqlCommand cmd = new NpgsqlCommand();
                     cmd.Connection = con;
                     cmd.CommandText = sql;
@@ -99,9 +99,9 @@ namespace Eureca
                 for (int i = 0; i < txtSearch.Text.Length - 1; i++) box += txtSearch.Text[i];
                 if (e.KeyChar == (char)Keys.Back)
                 {
-                    sql = String.Format("select * from eureca.view Where partnumber ilike '%{0}%' limit 500;", box);
+                    sql = String.Format("select * from eureca.view Where (Описание ilike '%{0}%' or partnumber ilike '%{0}%') limit 500;", box);
                 }
-                else sql = String.Format("select * from eureca.view Where partnumber ilike '%{0}%' limit 500;", txtSearch.Text + e.KeyChar.ToString());
+                else sql = String.Format("select * from eureca.view Where (Описание ilike '%{0}%' or partnumber ilike '%{0}%') limit 500;", txtSearch.Text + e.KeyChar.ToString());
 
                 NpgsqlCommand cmd = new NpgsqlCommand();
                 cmd.Connection = con;

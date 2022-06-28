@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Npgsql;
 namespace Eureca
-{
+{ 
     public partial class Form2 : Form
-    {
+    {   public int closed = 0;
         private NpgsqlCommand cmd = new NpgsqlCommand();
         private NpgsqlConnection con = new NpgsqlConnection("Server=172.28.2.117;Username=postgres;Password=postgres;Database=eureca");
 
@@ -67,6 +67,11 @@ namespace Eureca
             {   EventArgs ar = new EventArgs();
                 button1_Click(sender,ar);
             }
+        }
+
+        private void Form2_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            closed = 1;
         }
     }
 }
